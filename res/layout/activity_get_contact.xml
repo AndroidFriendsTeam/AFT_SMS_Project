@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/editText_rech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/backGround"
+        android:ems="10"
+        android:hint="@string/str_Hint_Search"
+        android:textColorHint="@color/text"
+        android:textColor="@color/text" >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/mybutton"
+        android:text="@android:string/ok"
+        android:textColor="@color/text" />
+
+    <ListView
+        android:id="@+id/lsv_contact"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/btn_ok"
+        android:layout_below="@+id/editText_rech"
+        android:background="@color/backGround"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusDown="@id/btn_ok"
+        android:nextFocusUp="@id/editText_rech" />
+
+</RelativeLayout>

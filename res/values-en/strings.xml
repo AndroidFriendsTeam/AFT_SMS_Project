@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SMS multi-post</string>
+    <string name="str_Sending_Ok">Messages sent</string>
+    <string name="str_No_Contact">No contact</string>
+    <string name="str_No_Message">No message</string>
+    <string name="str_Hint_Search">Search</string>
+    <string name="str_Hint_Contact">Select your contacts here</string>
+    <string name="str_Hint_Message">Type your message here</string>
+    <string name="str_Hint_Cnt_Caract">160/160</string>
+    <string name="str_Hint_Cnt_SMS">1 SMS</string>
+    <string name="str_Btn_Last_Name">Last name</string>
+    <string name="str_Btn_First_Name">First name</string>
+    <string name="str_Content_Description_btn_Send">Send button</string>
+    <string name="str_Content_Description_btn_Contact">Contacts button</string>
+    <string name="str_Num_Contacts">Contact\'s numbers</string>
+    <string name="str_Sending_Confirm_1">Do you really want to send these messages to</string>
+    <string name="str_Sending_Confirm_2">recipients ?</string>
+    <string name="str_First_Name">First name</string>
+    <string name="str_Last_Name">Last name</string>
+    <string name="str_First_Name_Last_Name">First name, Last name</string>
+    <string name="str_Phone">Phone</string>
+
+</resources>

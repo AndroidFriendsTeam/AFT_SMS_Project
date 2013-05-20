@@ -1,0 +1,180 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/backGround"
+    tools:context=".MainActivity" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backGround" >
+
+            <LinearLayout
+                android:id="@+id/ligne1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/EditText_Contacts"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="20"
+                    android:background="@color/backGround"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/str_Hint_Contact"
+                    android:longClickable="false"
+                    android:scrollbars="none"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text" >
+
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/button_Contact"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="80"
+                    android:background="@android:drawable/dialog_frame"
+                    android:contentDescription="@string/str_Content_Description_btn_Contact"
+                    android:src="@android:drawable/ic_input_add" >
+                </ImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ligne2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ligne1"
+                android:baselineAligned="false"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/ligne2colonne1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="16"
+                    android:gravity="bottom"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/EditText_Message"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:background="@color/backGround"
+                        android:hint="@string/str_Hint_Message"
+                        android:textColor="@color/text"
+                        android:textColorHint="@color/text" >
+
+                    </EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ligne2colonne2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="84"
+                    android:gravity="bottom"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/ligne2colonne2ligne1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/tevNbCaract"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/str_Hint_Cnt_Caract"
+                            android:textColor="@color/text"
+                            android:textColorHint="@color/text"
+                            android:textIsSelectable="false"
+                            android:textSize="12sp" >
+                        </TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ligne2colonne2ligne2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/tevNbSMS"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_Hint_Cnt_SMS"
+                            android:textColor="@color/text"
+                            android:textColorHint="@color/text"
+                            android:textIsSelectable="false"
+                            android:textSize="12sp" >
+                        </TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ligne2colonne2ligne3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:orientation="horizontal" >
+
+                        <ImageButton
+                            android:id="@+id/button_Envoyer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@color/backGround"
+                            android:contentDescription="@string/str_Content_Description_btn_Send"
+                            android:src="@android:drawable/ic_menu_send" >
+                        </ImageButton>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ligne3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ligne2"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:textColor="@color/text" >
+
+                <Button
+                    android:id="@+id/button_BDF_Nom"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:background="@drawable/mybutton"
+                    android:text="@string/str_Btn_Last_Name"
+                    android:textColor="@color/text" >
+                </Button>
+
+                <Button
+                    android:id="@+id/button_BDF_Prenom"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:background="@drawable/mybutton"
+                    android:text="@string/str_Btn_First_Name"
+                    android:textColor="@color/text" >
+                </Button>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
