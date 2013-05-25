@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/backGround"
+    android:background="@drawable/main_background"
     tools:context=".MainActivity" >
 
     <ScrollView
@@ -11,8 +11,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/backGround" >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/ligne1"
@@ -25,8 +24,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:layout_weight="20"
-                    android:background="@color/backGround"
+                    android:layout_weight="16"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -43,9 +41,9 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="80"
-                    android:background="@android:drawable/dialog_frame"
-                    android:contentDescription="@string/str_Content_Description_btn_Contact"
-                    android:src="@android:drawable/ic_input_add" >
+                    android:background="@drawable/button_contact"
+                    android:contentDescription="@string/str_Content_Description_btn_Contact" >
+
                 </ImageButton>
             </LinearLayout>
 
@@ -71,7 +69,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:background="@color/backGround"
+                        
                         android:hint="@string/str_Hint_Message"
                         android:textColor="@color/text"
                         android:textColorHint="@color/text" >
@@ -135,11 +133,11 @@
 
                         <ImageButton
                             android:id="@+id/button_Envoyer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@color/backGround"
-                            android:contentDescription="@string/str_Content_Description_btn_Send"
-                            android:src="@android:drawable/ic_menu_send" >
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/button_send"
+                            android:contentDescription="@string/str_Content_Description_btn_Send" >
+
                         </ImageButton>
                     </LinearLayout>
                 </LinearLayout>
@@ -159,7 +157,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="50"
-                    android:background="@drawable/mybutton"
+                    android:background="@drawable/button_concave_convexe"
                     android:text="@string/str_Btn_Last_Name"
                     android:textColor="@color/text" >
                 </Button>
@@ -169,7 +167,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="50"
-                    android:background="@drawable/mybutton"
+                    android:background="@drawable/button_concave_convexe"
                     android:text="@string/str_Btn_First_Name"
                     android:textColor="@color/text" >
                 </Button>

@@ -71,10 +71,10 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		rech.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s) {		
 
-				_adapter.getFilter().filter(s.toString());
-				Integer j = 0 ;
-				j = _adapter.getCount();
-				Toast.makeText(getApplicationContext(), j.toString(), Toast.LENGTH_SHORT).show();
+//				_adapter.getFilter().filter(s.toString());
+//				Integer j = 0 ;
+//				j = _adapter.getCount();
+//				Toast.makeText(getApplicationContext(), j.toString(), Toast.LENGTH_SHORT).show();
 
 			}
 
@@ -83,7 +83,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 			public void onTextChanged(CharSequence s, int start, int before, int count) {    
 				//Set the filter
-				_adapter.getFilter().filter(s.toString());
+//				_adapter.getFilter().filter(s.toString());
 
 
 				//				Integer j = 0;

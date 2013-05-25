@@ -15,32 +15,44 @@ public final class R {
         public static final int text=0x7f040000;
     }
     public static final class drawable {
-        public static final int bouton_concave_jpg=0x7f020000;
-        public static final int bouton_convexe_jpg=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int mybutton=0x7f020003;
+        public static final int button_concave=0x7f020000;
+        public static final int button_concave_convexe=0x7f020001;
+        public static final int button_contact=0x7f020002;
+        public static final int button_convexe=0x7f020003;
+        public static final int button_send=0x7f020004;
+        public static final int checkbox_checked=0x7f020005;
+        public static final int checkbox_unchecked=0x7f020006;
+        public static final int contact_pressed=0x7f020007;
+        public static final int contact_unpressed=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int line_background=0x7f02000a;
+        public static final int main_background=0x7f02000b;
+        public static final int mycheckbox=0x7f02000c;
+        public static final int send_pressed=0x7f02000d;
+        public static final int send_unpressed=0x7f02000e;
     }
     public static final class id {
-        public static final int EditText_Contacts=0x7f070007;
-        public static final int EditText_Message=0x7f07000b;
-        public static final int btn_ok=0x7f070004;
-        public static final int button_BDF_Nom=0x7f070014;
-        public static final int button_BDF_Prenom=0x7f070015;
-        public static final int button_Contact=0x7f070008;
-        public static final int button_Envoyer=0x7f070012;
+        public static final int EditText_Contacts=0x7f070008;
+        public static final int EditText_Message=0x7f07000c;
+        public static final int btn_cancel=0x7f070005;
+        public static final int btn_ok=0x7f070006;
+        public static final int button_BDF_Nom=0x7f070015;
+        public static final int button_BDF_Prenom=0x7f070016;
+        public static final int button_Contact=0x7f070009;
+        public static final int button_Envoyer=0x7f070013;
         public static final int ckb_selection=0x7f070002;
         public static final int editText_rech=0x7f070003;
-        public static final int ligne1=0x7f070006;
-        public static final int ligne2=0x7f070009;
-        public static final int ligne2colonne1=0x7f07000a;
-        public static final int ligne2colonne2=0x7f07000c;
-        public static final int ligne2colonne2ligne1=0x7f07000d;
-        public static final int ligne2colonne2ligne2=0x7f07000f;
-        public static final int ligne2colonne2ligne3=0x7f070011;
-        public static final int ligne3=0x7f070013;
-        public static final int lsv_contact=0x7f070005;
-        public static final int tevNbCaract=0x7f07000e;
-        public static final int tevNbSMS=0x7f070010;
+        public static final int ligne1=0x7f070007;
+        public static final int ligne2=0x7f07000a;
+        public static final int ligne2colonne1=0x7f07000b;
+        public static final int ligne2colonne2=0x7f07000d;
+        public static final int ligne2colonne2ligne1=0x7f07000e;
+        public static final int ligne2colonne2ligne2=0x7f070010;
+        public static final int ligne2colonne2ligne3=0x7f070012;
+        public static final int ligne3=0x7f070014;
+        public static final int lsv_contact=0x7f070004;
+        public static final int tevNbCaract=0x7f07000f;
+        public static final int tevNbSMS=0x7f070011;
         public static final int txt_name=0x7f070000;
         public static final int txt_phone=0x7f070001;
     }
