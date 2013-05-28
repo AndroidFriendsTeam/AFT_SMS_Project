@@ -186,6 +186,19 @@ public class Contact implements Parcelable, Comparable<Contact>{
 
 	}
 
+	//Method for coping all properties from another contact
+	public void Copy(Contact copy){
+
+		this.familyName = copy.familyName;
+		this.givenName = copy.givenName;
+		this.displayName = copy.displayName;
+		this.phoneNumber = copy.phoneNumber;
+		this.id_Contact = copy.id_Contact;
+		this.id_PhoneNumber = copy.id_PhoneNumber;
+		this.checked = copy.checked;
+
+	}
+
 	@Override
 	public int describeContents() {
 
@@ -239,21 +252,21 @@ public class Contact implements Parcelable, Comparable<Contact>{
 
 		return 0;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		
+
 		boolean	isEqual = false;
 		Contact c = (Contact)o;
-	
+
 		//Testing if contacts have the same ID 
 		if(c.id_Contact.equals(id_Contact)) isEqual = true;
-		
+
 		//Log.v("Contact",c.id_Contact+"=="+id_Contact+"/"+isEqual);
-		
+
 		return isEqual;
-		
-		
+
+
 	}
 
 }

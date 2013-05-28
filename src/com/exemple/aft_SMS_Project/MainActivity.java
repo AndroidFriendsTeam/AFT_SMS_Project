@@ -150,10 +150,21 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Clic sur le bouton Contact
 	//Clic on the contact button
 	private void selectContact() {
-
-		//Création et ouverture de l'activité ActivityGetContact pour ouvrir la sélection des contacts
-		//Creating and opening the ActivityGetContact activity to open the contact selection
-		Intent i = new Intent(MainActivity.this,ActivityGetContact.class);
+				
+		//Création de l'intention d'ouvrir l'activité ActivityGetContact
+		//Creating a intention to open the ActivityGetContact activity 
+		Intent i = new Intent(MainActivity.this,ActivityGetContact.class);	
+		
+		//Initialition du bundle permettant de passer en paramètre à l'activité les contacts sélectionnés
+		//Init the bundle that contain an array with contact already selected
+		Bundle _param = new Bundle();
+		_param.putParcelableArrayList("selectedItems", liste_De_Contact);
+		
+		//Affection du bundle de paramètre à l'intention
+		//Set the bundle into the intent
+		i.putExtras(_param);
+				
+		//Start the ActivityGetContact activity to open the contact selection
 		startActivityForResult(i,SELECT_CONTACT);
 
 	}
