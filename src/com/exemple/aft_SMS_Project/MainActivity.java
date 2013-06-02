@@ -226,7 +226,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			Integer nb_Contact = 0;
 
 			//Parcours du tableau de contact
-			for(Contact c : liste_De_Contact){
+			for(@SuppressWarnings("unused") Contact c : liste_De_Contact){
 
 				nb_Contact += 1 ;
 

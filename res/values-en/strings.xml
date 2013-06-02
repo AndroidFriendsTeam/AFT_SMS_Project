@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SMS multi-post</string>
+    <string name="app_name">multi-post SMS</string>
     <string name="str_Sending_Ok">Messages sent</string>
     <string name="str_No_Contact">No contact</string>
     <string name="str_No_Message">No message</string>

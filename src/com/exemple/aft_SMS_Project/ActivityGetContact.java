@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,7 +28,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ActivityGetContact extends Activity implements OnClickListener   {
 	
@@ -75,10 +75,14 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		_lsv_contact.setTextFilterEnabled(true);
 
 		EditText rech = (EditText) findViewById(R.id.editText_rech);
+		
+		//Masquer le clavier virtuel jusqu'on appui sur le editText
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		
 
 		//Add TextWatcher on the EditText
 		rech.addTextChangedListener(new TextWatcher() {
-			public void afterTextChanged(Editable s) {		
+			public void afterTextChanged(Editable s) {	
 
 				//				_adapter.getFilter().filter(s.toString());
 				//				Integer j = 0 ;

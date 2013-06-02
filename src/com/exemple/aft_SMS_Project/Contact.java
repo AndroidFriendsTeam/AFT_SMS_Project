@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
-import android.util.Log;
-import android.widget.Toast;
 
 public class Contact implements Parcelable, Comparable<Contact>{
 
