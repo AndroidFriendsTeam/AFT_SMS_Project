@@ -4,6 +4,7 @@ import com.example.aft_sms_project.R;
 
 import java.util.ArrayList;
 
+import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -87,7 +88,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		findViewById(R.id.button_BDF_Nom).setOnClickListener(this);
 		findViewById(R.id.button_BDF_Prenom).setOnClickListener(this);
 		findViewById(R.id.button_Envoyer).setOnClickListener(this);
-
+		
+		
+		//Check android version for switch text color
+		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
+			champ_Contact.setBackgroundColor(color.background_dark);
+			champ_Message.setBackgroundColor(color.background_dark);
+		}
+		
+		
 		//Initialisation des compteurs
 		//Initialisation of counter
 		taille_Sms = nb_Sms = 0;
@@ -194,7 +203,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//placer le curseur en fin de texte
 		//Set the cursor at the end of the text
 		champ_Message.setSelection(champ_Message.getText().length());
-
+		
 	}
 
 	//Clic sur le bouton envoyer

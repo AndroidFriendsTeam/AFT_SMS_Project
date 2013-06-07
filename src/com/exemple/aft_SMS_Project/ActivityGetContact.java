@@ -13,8 +13,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.SyncStateContract.Constants;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +26,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class ActivityGetContact extends Activity implements OnClickListener   {
-	
+
 	Button _btn_ok;
 	Button _btn_cancel;
 	ListView _lsv_contact;
@@ -75,44 +79,23 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		_lsv_contact.setTextFilterEnabled(true);
 
 		EditText rech = (EditText) findViewById(R.id.editText_rech);
-		
+
 		//Masquer le clavier virtuel jusqu'on appui sur le editText
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
+
 
 		//Add TextWatcher on the EditText
 		rech.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s) {	
 
-				//				_adapter.getFilter().filter(s.toString());
-				//				Integer j = 0 ;
-				//				j = _adapter.getCount();
-				//				Toast.makeText(getApplicationContext(), j.toString(), Toast.LENGTH_SHORT).show();
-
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
 			}
 
 			public void onTextChanged(CharSequence s, int start, int before, int count) {    
-				//Set the filter
-				//				_adapter.getFilter().filter(s.toString());
-
-
-				//				Integer j = 0;
-				//				Toast.makeText(getApplicationContext(), j ,Toast.LENGTH_SHORT).show() ;
-
-				//				for(int i = 0 ; i <= _adapter.getCount() ; i++){				
-				//
-				//					//test permettant de tester l'état du contact coché ou décoché
-				//					if(_adapter.getItem(i).getIs_Checked()){
-				//						_lsv_contact.setItemChecked(i , true);
-				//					}
-				//					else{
-				//						_lsv_contact.setItemChecked(i , false);
-				//					}
-				//				}
-				//				Toast.makeText(getApplicationContext(), _adapter.getItem(j).getDisplayName() ,Toast.LENGTH_SHORT).show();
+				_adapter.getFilter().filter(s.toString());    	
 			}
 		});
 	}
@@ -230,14 +213,14 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 	public void onClick(View v) {
 
 		if(v.getId() == R.id.btn_cancel){
-			
+
 			//Initialize a new Intent
 			Intent _intent_result = new Intent();
 			//Set a cancel result
 			setResult(RESULT_CANCELED,_intent_result);
 			//Close the activity
 			finish();
-			
+
 		}
 		else{
 
@@ -348,17 +331,18 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 
 	//Begin of the customAdapter
-	public class MyCustomAdapter extends ArrayAdapter<Contact> {
+	public class MyCustomAdapter extends ArrayAdapter<Contact> implements Filterable {
 
 		private ArrayList<Contact> _contacts;
+		private ArrayList<Contact> _contactsFiltered;
+		
 
 		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Contact> in_contacts) {
 			super(context, textViewResourceId, in_contacts);
-
-			//Allocated a new ArrayList<Contact>
-			this._contacts = new ArrayList<Contact>();
-			//Copy all contacts from the param in_contacts to the member _contacts
-			this._contacts.addAll(in_contacts);		
+			
+			_contacts 			= in_contacts;
+			_contactsFiltered 	= in_contacts;
+			
 		}
 
 		private class ViewHolder{
@@ -366,6 +350,24 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			TextView phoneNumber;
 			CheckBox checkSelection;
 		}
+		
+		
+		//For this helper method, return based on filteredData
+	    public int getCount() 
+	    {
+	        return _contactsFiltered.size();
+	    }
+
+	    //This should return a data Contact, not an integer
+	    public Contact getItem(int position) 
+	    {
+	        return _contactsFiltered.get(position);
+	    }
+
+	    public long getItemId(int position) 
+	    {
+	        return position;
+	    }
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -387,26 +389,43 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 					@Override
 					public void onClick(View v) {
-
+						
 						CheckBox 	_chk 		= (CheckBox)v;
 						Contact 	_contact 	= (Contact)_chk.getTag();
 
 						_contact.setChecked((_chk.isChecked()));
 
 						if(_contact.getIs_Checked())
-							PhoneNumberSelection(_contact);			
+							PhoneNumberSelection(_contact);	
 
 					}
 
 				});
+				
+				convertView.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {		
+						
+						View 		_view		= (View)v;
+						CheckBox 	_chk 		= (CheckBox)_view.findViewById(R.id.ckb_selection);
+						Contact 	_contact 	= (Contact)_chk.getTag();
+						
+						_chk.setChecked(!_chk.isChecked());
+						_contact.setChecked((_chk.isChecked()));
 
+						if(_contact.getIs_Checked())
+							PhoneNumberSelection(_contact);		
+						
+					}
+				});
 
 			}
 			else {
 				_holder = (ViewHolder) convertView.getTag();
 			}
 
-			Contact _contact = _contacts.get(position);
+			Contact _contact = _contactsFiltered.get(position);
 			_holder.displayName.setText(_contact.getDisplayName());
 			_holder.phoneNumber.setText(_contact.getPhoneNumber());
 			_holder.checkSelection.setChecked(_contact.getIs_Checked());
@@ -415,9 +434,58 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			return convertView;
 		}
 
-		//TODO for davy overide the GetFilter méthode
 
-		//
+
+		@Override
+		public Filter getFilter() {
+
+			return new Filter()
+			{
+				
+				@Override
+				protected FilterResults performFiltering(CharSequence constraint) {
+
+					FilterResults results = new FilterResults();
+
+					// We implement here the filter logic
+					if (constraint == null || constraint.length() == 0) {
+						// No filter implemented we return all the list
+						results.values = _contacts;
+						results.count =  _contacts.size();
+					}
+					else {
+						// We perform filtering operation
+						ArrayList<Contact> nContacts = new ArrayList<Contact>();
+
+						for (Contact c : _contacts) {
+							if (c.getDisplayName().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+								nContacts.add(c);
+						}
+
+						results.values 	= nContacts;
+						results.count 	= nContacts.size();
+
+					}
+
+					return results;
+
+				}
+
+				@SuppressWarnings("unchecked")
+				@Override
+				protected void publishResults(CharSequence constraint,FilterResults results) {
+					
+					//Set the list of filtered contact on the display list
+					_contactsFiltered = (ArrayList<Contact>) results.values;
+					//We notify that the data have been changed
+					notifyDataSetChanged();
+
+				}	
+				
+			};
+			
+		}
+
 
 
 	}//End CustomAdapter
