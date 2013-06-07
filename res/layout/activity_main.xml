@@ -16,7 +16,7 @@
             <LinearLayout
                 android:id="@+id/ligne1"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:orientation="horizontal" >
 
                 <EditText
@@ -24,7 +24,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:layout_weight="16"
+                    android:layout_weight="30"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -39,12 +39,11 @@
                 <ImageButton
                     android:id="@+id/button_Contact"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="80"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="90"
                     android:background="@drawable/button_contact"
-                    android:contentDescription="@string/str_Content_Description_btn_Contact" >
+                    android:contentDescription="@string/str_Content_Description_btn_Contact" />
 
-                </ImageButton>
             </LinearLayout>
 
             <LinearLayout
@@ -58,9 +57,9 @@
                 <LinearLayout
                     android:id="@+id/ligne2colonne1"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:layout_gravity="bottom"
-                    android:layout_weight="16"
+                    android:layout_weight="30"
                     android:gravity="bottom"
                     android:orientation="vertical" >
 
@@ -82,7 +81,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_weight="84"
+                    android:layout_weight="90"
                     android:gravity="bottom"
                     android:orientation="vertical" >
 
@@ -91,18 +90,20 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="33"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal"
+                        android:textAlignment="center" >
 
                         <TextView
                             android:id="@+id/tevNbCaract"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:hint="@string/str_Hint_Cnt_Caract"
                             android:textColor="@color/text"
                             android:textColorHint="@color/text"
                             android:textIsSelectable="false"
-                            android:textSize="12sp" >
-                        </TextView>
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -116,18 +117,20 @@
                             android:id="@+id/tevNbSMS"
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
+                            android:ellipsize="end"
                             android:hint="@string/str_Hint_Cnt_SMS"
                             android:textColor="@color/text"
                             android:textColorHint="@color/text"
                             android:textIsSelectable="false"
                             android:textSize="12sp" >
+
                         </TextView>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ligne2colonne2ligne3"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80dp"
                         android:layout_weight="33"
                         android:orientation="horizontal" >
 
@@ -146,7 +149,7 @@
             <LinearLayout
                 android:id="@+id/ligne3"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_below="@+id/ligne2"
                 android:gravity="bottom"
                 android:orientation="horizontal"
