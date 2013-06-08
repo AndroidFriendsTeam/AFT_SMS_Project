@@ -21,6 +21,7 @@
             android:textColor="@color/text"
             android:textColorHint="@color/text"
             android:textSize="22sp" >
+            
 
         </EditText>
     </LinearLayout>

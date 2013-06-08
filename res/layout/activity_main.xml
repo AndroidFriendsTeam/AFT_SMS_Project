@@ -33,6 +33,7 @@
                     android:scrollbars="none"
                     android:textColor="@color/text"
                     android:textColorHint="@color/text" >
+                    
 
                 </EditText>
 
