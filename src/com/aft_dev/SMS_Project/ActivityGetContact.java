@@ -31,13 +31,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ActivityGetContact extends Activity implements OnClickListener   {
 
 	Button _btn_ok;
 	Button _btn_cancel;
 	ImageButton _btn_reset;
+	EditText rech;
 	ListView _lsv_contact;
 	MyCustomAdapter _adapter = null;
 	ArrayList<Contact> _contacts;
@@ -75,37 +75,20 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		//Initialize a listener on the button for get the clic
 		this._btn_ok.setOnClickListener(this);
 		this._btn_cancel.setOnClickListener(this);
-		
-		//pour le vidage du textedit
-//		this._btn_reset.setOnClickListener(new View.OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Stub de la méthode généré automatiquement
-//				Toast.makeText(getApplicationContext(), "blabla", Toast.LENGTH_SHORT).show();
-//			}
-//			
-//		});
+		this._btn_reset.setOnClickListener(this);
 
 		//activate the filter on the ListView
 		_lsv_contact.setTextFilterEnabled(true);
-
-		EditText rech = (EditText) findViewById(R.id.editText_rech);
-
+		
 		//Masquer le clavier virtuel jusqu'on appui sur le editText
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
 
 		//Add TextWatcher on the EditText
 		rech.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s) {	
-
 			}
-
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
 			}
-
 			public void onTextChanged(CharSequence s, int start, int before, int count) {    
 				_adapter.getFilter().filter(s.toString());    	
 			}
@@ -117,12 +100,12 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		this._btn_ok = (Button)findViewById(R.id.btn_ok);
 		this._btn_cancel = (Button)findViewById(R.id.btn_cancel);
 		this._lsv_contact = (ListView)findViewById(R.id.lsv_contact);
-//		this._btn_reset = (Button)findViewById(R.id.btn_reset);
+		this._btn_reset = (ImageButton)findViewById(R.id.btn_reset);
+		this.rech = (EditText) findViewById(R.id.editText_rech);
 	}
 
 	public ArrayList<Contact> getListContactPhone()
 	{	
-
 		String _display, _phone, _id;
 		int _idx_display, _idx_phone, _idx_id;
 		ArrayList<Contact> _contacts = new ArrayList<Contact>();
@@ -150,9 +133,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			if(_display != null && _phone != "" && !_contacts.contains(_contact)){
 
 				_contacts.add(_contact);
-
 			};
-
 		}
 
 		_phones.close();
@@ -190,14 +171,12 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		String given, family, display, contact_id;
 		int _idx_given, _idx_family, _idx_display, _idx_contact_id;
 
-
 		Cursor nameCur = getContentResolver().query(ContactsContract.Data.CONTENT_URI, null, whereName, whereNameParams, ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);
 
 		_idx_given 		= nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);
 		_idx_family 	= nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME);
 		_idx_display 	= nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME);
 		_idx_contact_id = nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.CONTACT_ID);
-
 
 		while (nameCur.moveToNext()) {
 
@@ -223,58 +202,67 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		return _contacts.toArray(new Contact[_contacts.size()]);
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		if(v.getId() == R.id.btn_cancel){
-
-			//Initialize a new Intent
-			Intent _intent_result = new Intent();
-			//Set a cancel result
-			setResult(RESULT_CANCELED,_intent_result);
-			//Close the activity
-			finish();
-
+	//gestion des clics sur les boutons
+	//managing the clic on the button
+	public void onClick(View arg0) {
+		switch (arg0.getId())
+		{
+		case R.id.btn_cancel : contact_cancel();		
+		break;
+		case R.id.btn_ok : contact_ok();
+		break;
+		case R.id.btn_reset : contact_reset();
+		break;
+		default :
 		}
-		else{
+	}
 
+	private void contact_cancel() {
+		//Initialize a new Intent
+		Intent _intent_result = new Intent();
+		//Set a cancel result
+		setResult(RESULT_CANCELED,_intent_result);
+		//Close the activity
+		finish();
 
-			//Fill a array of String with the selected items
-			Contact _contact_tmp;
-			ArrayList<Contact> _contacts		= _adapter._contacts;
-			ArrayList<Contact> _selected_items 	= new ArrayList<Contact>();
+	}
 
-			//Loop checked contact for fill the array of items
-			for(int i = 0 ; i < _contacts.size() ; i++){
+	private void contact_ok() {
+		//Fill a array of String with the selected items
+		Contact _contact_tmp;
+		ArrayList<Contact> _contacts		= _adapter._contacts;
+		ArrayList<Contact> _selected_items 	= new ArrayList<Contact>();
 
-				//if contact is checked add in the array of items
-				if(_contacts.get(i).getIs_Checked())
-				{
-					_contact_tmp = _contacts.get(i);
-					_contact_tmp.InitInfoContact(this);				
-					_selected_items.add(_contact_tmp);	
-				}
+		//Loop checked contact for fill the array of items
+		for(int i = 0 ; i < _contacts.size() ; i++){
+
+			//if contact is checked add in the array of items
+			if(_contacts.get(i).getIs_Checked())
+			{
+				_contact_tmp = _contacts.get(i);
+				_contact_tmp.InitInfoContact(this);				
+				_selected_items.add(_contact_tmp);	
 			}
+		}
 
+		//Initialise a new Intent
+		Intent _intent_result = new Intent();
 
+		//Create a bundle object to put in parameter of the intent
+		Bundle _param = new Bundle();
+		_param.putParcelableArrayList("selectedItems", _selected_items);
 
-			//Initialise a new Intent
-			Intent _intent_result = new Intent();
+		//Add the bundle into the intent
+		_intent_result.putExtras(_param);
 
-			//Create a bundle object to put in parameter of the intent
-			Bundle _param = new Bundle();
-			_param.putParcelableArrayList("selectedItems", _selected_items);
+		//		Start the result activity
+		//		startActivity(_intent_result);
+		setResult(RESULT_OK,_intent_result);
+		finish();
+	}
 
-			//Add the bundle into the intent
-			_intent_result.putExtras(_param);
-
-			//		Start the result activity
-			//		startActivity(_intent_result);
-			setResult(RESULT_OK,_intent_result);
-
-			finish();
-
-		} //else if(v.getId()
+	private void contact_reset() {
+		rech.setText("");
 	}
 
 	public void PhoneNumberSelection(Contact in_contact){
@@ -333,9 +321,6 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			phoneNumberEnCours = phoneNumber_List.get(0).getPhoneNumber();
 			idPhoneNumberEnCours = phoneNumber_List.get(0).getIdPhoneNumber();
 
-			//			_contacts.get(_pos).setPhoneNumber(phoneNumberEnCours);
-			//			_contacts.get(_pos).setId_PhoneNumber(idPhoneNumberEnCours);
-
 			c.setPhoneNumber(phoneNumberEnCours);
 			c.setId_PhoneNumber(idPhoneNumberEnCours);
 
@@ -343,13 +328,11 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 	}//End OnItemClick
 
-
 	//Begin of the customAdapter
 	public class MyCustomAdapter extends ArrayAdapter<Contact> implements Filterable {
 
 		private ArrayList<Contact> _contacts;
 		private ArrayList<Contact> _contactsFiltered;
-
 
 		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Contact> in_contacts) {
 			super(context, textViewResourceId, in_contacts);
@@ -364,7 +347,6 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			TextView phoneNumber;
 			CheckBox checkSelection;
 		}
-
 
 		//For this helper method, return based on filteredData
 		public int getCount() 
@@ -447,8 +429,6 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			return convertView;
 		}
 
-
-
 		@Override
 		public Filter getFilter() {
 
@@ -499,9 +479,6 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 		}
 
-
-
 	}//End CustomAdapter
-
 
 }//End Class

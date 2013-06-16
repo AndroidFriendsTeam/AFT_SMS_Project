@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		findViewById(R.id.button_BDF_Prenom).setOnClickListener(this);
 		findViewById(R.id.button_Envoyer).setOnClickListener(this);
 		
-		
+		//Test pour savoir quelle est la version d'android
 		//Check android version for switch text color
 		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
 			champ_Contact.setBackgroundColor(color.background_dark);
@@ -262,15 +262,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 						message_Temporaire = RechercheEtRemplace(message_Temporaire,bdf_Nom,c);
 
-//						Toast.makeText(getApplicationContext(), message_Temporaire, Toast.LENGTH_SHORT).show();
-
 						message_Temporaire = RechercheEtRemplace(message_Temporaire,bdf_Prenom,c);
-
-//						Toast.makeText(getApplicationContext(), message_Temporaire, Toast.LENGTH_SHORT).show();
-//
-//						Toast.makeText(getApplicationContext(), c.getFamilyName() + "family name", Toast.LENGTH_SHORT).show();
-//
-//						Toast.makeText(getApplicationContext(), c.getGivenName() + "given name", Toast.LENGTH_SHORT).show();
 
 						//Création du multi-SMS si besoin et envoi du SMS	
 						liste_De_Message = SmsManager.getDefault().divideMessage(message_Temporaire);
@@ -395,7 +387,6 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onBackPressed() {
-		// TODO vider tous les champs à la fermeture du programme
 
 		champ_Contact.setText("");
 		champ_Message.setText("");
