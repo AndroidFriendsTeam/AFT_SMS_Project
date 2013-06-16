@@ -21,5 +21,6 @@
     <string name="str_Last_Name">Last name</string>
     <string name="str_First_Name_Last_Name">First name, Last name</string>
     <string name="str_Phone">Phone</string>
+    <string name="search">Search</string>
 
 </resources>

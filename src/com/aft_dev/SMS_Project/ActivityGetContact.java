@@ -1,10 +1,10 @@
-package com.exemple.aft_SMS_Project;
+package com.aft_dev.SMS_Project;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.aft_sms_project.R;
+import com.aft_dev.SMS_Project.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,10 +13,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.SyncStateContract.Constants;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,15 +26,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ActivityGetContact extends Activity implements OnClickListener   {
 
 	Button _btn_ok;
 	Button _btn_cancel;
+	ImageButton _btn_reset;
 	ListView _lsv_contact;
 	MyCustomAdapter _adapter = null;
 	ArrayList<Contact> _contacts;
@@ -74,6 +75,17 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		//Initialize a listener on the button for get the clic
 		this._btn_ok.setOnClickListener(this);
 		this._btn_cancel.setOnClickListener(this);
+		
+		//pour le vidage du textedit
+//		this._btn_reset.setOnClickListener(new View.OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Stub de la méthode généré automatiquement
+//				Toast.makeText(getApplicationContext(), "blabla", Toast.LENGTH_SHORT).show();
+//			}
+//			
+//		});
 
 		//activate the filter on the ListView
 		_lsv_contact.setTextFilterEnabled(true);
@@ -98,12 +110,14 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 				_adapter.getFilter().filter(s.toString());    	
 			}
 		});
+
 	}
 
 	private void findViewById(){
 		this._btn_ok = (Button)findViewById(R.id.btn_ok);
 		this._btn_cancel = (Button)findViewById(R.id.btn_cancel);
 		this._lsv_contact = (ListView)findViewById(R.id.lsv_contact);
+//		this._btn_reset = (Button)findViewById(R.id.btn_reset);
 	}
 
 	public ArrayList<Contact> getListContactPhone()
@@ -335,14 +349,14 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 		private ArrayList<Contact> _contacts;
 		private ArrayList<Contact> _contactsFiltered;
-		
+
 
 		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Contact> in_contacts) {
 			super(context, textViewResourceId, in_contacts);
-			
+
 			_contacts 			= in_contacts;
 			_contactsFiltered 	= in_contacts;
-			
+
 		}
 
 		private class ViewHolder{
@@ -350,24 +364,24 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 			TextView phoneNumber;
 			CheckBox checkSelection;
 		}
-		
-		
+
+
 		//For this helper method, return based on filteredData
-	    public int getCount() 
-	    {
-	        return _contactsFiltered.size();
-	    }
+		public int getCount() 
+		{
+			return _contactsFiltered.size();
+		}
 
-	    //This should return a data Contact, not an integer
-	    public Contact getItem(int position) 
-	    {
-	        return _contactsFiltered.get(position);
-	    }
+		//This should return a data Contact, not an integer
+		public Contact getItem(int position) 
+		{
+			return _contactsFiltered.get(position);
+		}
 
-	    public long getItemId(int position) 
-	    {
-	        return position;
-	    }
+		public long getItemId(int position) 
+		{
+			return position;
+		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -380,7 +394,6 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 				_holder = new ViewHolder();
 				_holder.displayName 	= (TextView) convertView.findViewById(R.id.txt_name);
-				//					_holder.displayName.onTouchEvent(null);
 				_holder.phoneNumber 	= (TextView) convertView.findViewById(R.id.txt_phone);
 				_holder.checkSelection 	= (CheckBox) convertView.findViewById(R.id.ckb_selection);
 				convertView.setTag(_holder);
@@ -389,7 +402,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 					@Override
 					public void onClick(View v) {
-						
+
 						CheckBox 	_chk 		= (CheckBox)v;
 						Contact 	_contact 	= (Contact)_chk.getTag();
 
@@ -401,22 +414,22 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 					}
 
 				});
-				
+
 				convertView.setOnClickListener(new View.OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {		
-						
+
 						View 		_view		= (View)v;
 						CheckBox 	_chk 		= (CheckBox)_view.findViewById(R.id.ckb_selection);
 						Contact 	_contact 	= (Contact)_chk.getTag();
-						
+
 						_chk.setChecked(!_chk.isChecked());
 						_contact.setChecked((_chk.isChecked()));
 
 						if(_contact.getIs_Checked())
 							PhoneNumberSelection(_contact);		
-						
+
 					}
 				});
 
@@ -441,7 +454,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 			return new Filter()
 			{
-				
+
 				@Override
 				protected FilterResults performFiltering(CharSequence constraint) {
 
@@ -474,16 +487,16 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 				@SuppressWarnings("unchecked")
 				@Override
 				protected void publishResults(CharSequence constraint,FilterResults results) {
-					
+
 					//Set the list of filtered contact on the display list
 					_contactsFiltered = (ArrayList<Contact>) results.values;
 					//We notify that the data have been changed
 					notifyDataSetChanged();
 
 				}	
-				
+
 			};
-			
+
 		}
 
 

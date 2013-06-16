@@ -5,7 +5,7 @@
     <string name="str_Sending_Ok">Messages envoyés</string>
     <string name="str_No_Contact">Aucun contact</string>
     <string name="str_No_Message">Aucun message</string>
-    <string name="str_Hint_Search">Recherche</string>
+    <string name="str_Hint_Search">Rechercher</string>
     <string name="str_Hint_Contact">Sélectionner ici vos contacts</string>
     <string name="str_Hint_Message">Taper ici votre message à publiposter</string>
     <string name="str_Hint_Cnt_Caract">160/160</string>
@@ -21,5 +21,6 @@
     <string name="str_Last_Name">Nom</string>
     <string name="str_First_Name_Last_Name">Prénom, Nom</string>
     <string name="str_Phone">Numéro</string>
+    <string name="search">Rechercher</string>
 
 </resources>

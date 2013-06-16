@@ -1,4 +1,4 @@
-package com.exemple.aft_SMS_Project;
+package com.aft_dev.SMS_Project;
 
 //A supprimer
 

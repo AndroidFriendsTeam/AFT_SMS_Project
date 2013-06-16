@@ -2,5 +2,25 @@
 <resources>
 
     <string name="app_name">multi-post SMS</string>
+    <string name="str_Sending_Ok">Messages envoyés</string>
+    <string name="str_No_Contact">Aucun contact</string>
+    <string name="str_No_Message">Aucun message</string>
+    <string name="str_Hint_Search">Rechercher</string>
+    <string name="str_Hint_Contact">Sélectionner ici vos contacts</string>
+    <string name="str_Hint_Message">Taper ici votre message à publiposter</string>
+    <string name="str_Hint_Cnt_Caract">160/160</string>
+    <string name="str_Hint_Cnt_SMS">1 SMS</string>
+    <string name="str_Btn_Last_Name">Nom</string>
+    <string name="str_Btn_First_Name">Prénom</string>
+    <string name="str_Content_Description_btn_Send">Bouton envoyer</string>
+    <string name="str_Content_Description_btn_Contact">Bouton contacts</string>
+    <string name="str_Num_Contacts">Numéros du contact</string>
+    <string name="str_Sending_Confirm_1">Voulez-vous vraiment envoyer ce message à</string>
+    <string name="str_Sending_Confirm_2">destintaires ?</string>
+    <string name="str_First_Name">Prénom</string>
+    <string name="str_Last_Name">Nom</string>
+    <string name="str_First_Name_Last_Name">Prénom, Nom</string>
+    <string name="str_Phone">Numéro</string>
+    <string name="search">Rechercher</string>
 
 </resources>

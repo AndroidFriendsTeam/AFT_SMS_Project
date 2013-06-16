@@ -1,6 +1,6 @@
-package com.exemple.aft_SMS_Project;
+package com.aft_dev.SMS_Project;
 
-import com.example.aft_sms_project.R;
+import com.aft_dev.SMS_Project.R;
 
 import java.util.ArrayList;
 
