@@ -62,11 +62,11 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Creating variable for counter
 	Integer taille_Sms;
 	Integer nb_Sms;
+	Integer cursor_Position = 0;
 
 	public MainActivity() {
 		super();
-		bdf_Nom = new BaliseDeFusion("<Nom>");
-		bdf_Prenom = new BaliseDeFusion("<Prénom>");
+
 		liste_Contact = "";
 		liste_De_Message = new ArrayList<String>();
 		liste_De_Contact = new ArrayList<Contact>();
@@ -76,6 +76,12 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main); 
+		
+		//Création des balises de fusions en fonction de la langue de l'OS
+		String bdf_Nom_Name = "<" + getString(R.string.bdf_Name_Name) + ">";
+		String bdf_Nom_FirstName = "<" + getString(R.string.bdf_FirstName_Name) + ">";
+		bdf_Nom = new BaliseDeFusion(bdf_Nom_Name);
+		bdf_Prenom = new BaliseDeFusion(bdf_Nom_FirstName);
 
 		//attribution des différents objets aux ID
 		//matching object with ID
@@ -127,6 +133,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					int after) {
 				//on ne fait rien avant que le texte ne soit modifié
 				//nothing hapend before the text is changed
+				
 			}
 
 			@Override
@@ -181,24 +188,32 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Clic sur le bouton Nom
 	//Clic on the last name button
 	private void insert_BDF_Nom() {
+		
+		//Récupération de la position du curseur
+		cursor_Position = champ_Message.getSelectionStart();
 
 		//Ajouter la balise de fusion dans le message
 		//Add the text object in the message
-		message = champ_Message.getText() + " <Nom> ";
+		message = champ_Message.getText() + "";
+		message = ajouter_BDF(message, bdf_Nom.getNom(), cursor_Position);		
 		champ_Message.setText(message);
 		//placer le curseur en fin de texte
 		//Set the cursor at the end of the text
 		champ_Message.setSelection(champ_Message.getText().length());
-
+	
 	}
 
 	//Clic sur le bouton BDF Prénom
 	//Clic on the first name button
 	private void insert_BDF_Prenom() {
 
+		//Récupération de la position du curseur
+		cursor_Position = champ_Message.getSelectionStart();
+
 		//Ajouter la balise de fusion dans le message
 		//Add the text object in the message
-		message = champ_Message.getText() + " <Prénom> ";
+		message = champ_Message.getText() + "";
+		message = ajouter_BDF(message, bdf_Prenom.getNom(), cursor_Position);		
 		champ_Message.setText(message);
 		//placer le curseur en fin de texte
 		//Set the cursor at the end of the text
@@ -260,9 +275,9 @@ public class MainActivity extends Activity implements OnClickListener{
 
 						message_Temporaire = message;
 
-						message_Temporaire = RechercheEtRemplace(message_Temporaire,bdf_Nom,c);
+						message_Temporaire = RechercheEtRemplaceBDF(message_Temporaire,bdf_Nom,c);
 
-						message_Temporaire = RechercheEtRemplace(message_Temporaire,bdf_Prenom,c);
+						message_Temporaire = RechercheEtRemplaceBDF(message_Temporaire,bdf_Prenom,c);
 
 						//Création du multi-SMS si besoin et envoi du SMS	
 						liste_De_Message = SmsManager.getDefault().divideMessage(message_Temporaire);
@@ -273,6 +288,10 @@ public class MainActivity extends Activity implements OnClickListener{
 					Toast toast= Toast.makeText(getApplicationContext(), R.string.str_Sending_Ok, Toast.LENGTH_LONG);  
 					toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
 					toast.show();
+					
+					//suppression des contacts et du message
+					champ_Contact.setText("");
+					champ_Message.setText("");
 
 				} });
 			adb_mess_confirm.create();
@@ -330,7 +349,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	//Création de la fonction recherche et remplace pour remplacer les balises de fusions dans les SMS
-	public String RechercheEtRemplace(String source,BaliseDeFusion BDF, Contact c){
+	public String RechercheEtRemplaceBDF(String source,BaliseDeFusion BDF, Contact c){
 
 		int index_0, index_1;
 		String avant, pendant, apres, resultat;
@@ -358,9 +377,9 @@ public class MainActivity extends Activity implements OnClickListener{
 				//récupération de la première partie du message 
 				avant = source.substring(0, index_0);
 
-				//remplacement du mot recherché
+				//remplacement du mot_A_Trouver recherché
 				//Test pour savoir si notre balise de fusion est un nom ou un prénom
-				if(BDF.getNom() == "<Nom>"){
+				if(BDF.getNom() == bdf_Nom.getNom()){
 					pendant = c.getFamilyName();
 				}
 				else{
@@ -382,6 +401,29 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 			index++;
 		}
+		return source;
+	}
+	
+	//Création de la fonction ajouter_BDF pour intégrer un mot n'importe où dans une chaîne
+	public String ajouter_BDF(String source, String mot, Integer cursor_Index){
+
+		String avant, pendant, apres, resultat;
+
+		//récupération de la première partie du message 
+		avant = source.substring(0, cursor_Index);
+		
+		//récupération du mot à modifier
+		pendant = mot;
+		
+		//récupération de la fin de la chaîne
+		apres = source.substring(cursor_Index , source.length());
+
+		//création de la chaîne final
+		resultat = avant + " " + pendant + " " + apres;
+
+		//modification du message incluant les modifications
+		source = resultat;
+		
 		return source;
 	}
 

@@ -23,5 +23,7 @@
     <string name="str_Phone">Numéro</string>
     <string name="search">Rechercher</string>
     <string name="reset">bouton pour reset la recherche</string>
+    <string name="bdf_Name_Name">Nom</string>
+    <string name="bdf_FirstName_Name">Prénom</string>
 
 </resources>
