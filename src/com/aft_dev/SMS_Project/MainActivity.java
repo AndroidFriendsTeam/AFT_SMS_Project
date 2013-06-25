@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -318,6 +319,10 @@ public class MainActivity extends Activity implements OnClickListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//ici on pourra mettre l'option pour envoyer à plusieurs destinataires
+		MenuInflater _InfMnuCfg = getMenuInflater();
+		_InfMnuCfg.inflate(R.menu.menu_cfg, menu);
+		
+		
 		return true;
 	}
 

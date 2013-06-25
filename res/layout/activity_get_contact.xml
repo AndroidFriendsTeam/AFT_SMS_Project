@@ -29,6 +29,7 @@
                 android:textColor="@color/text"
                 android:textColorHint="@color/text"
                 android:textSize="22sp" >
+
             </EditText>
         </LinearLayout>
 
@@ -86,7 +87,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_concave_convexe"
-            android:gravity="center_vertical|center_horizontal"
+            android:minHeight="60dip"
             android:text="@android:string/cancel"
             android:textColor="@color/text" />
 
@@ -96,8 +97,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_concave_convexe"
+            android:minHeight="60dip"
             android:text="@android:string/ok"
             android:textColor="@color/text" />
+
     </LinearLayout>
 
 </LinearLayout>

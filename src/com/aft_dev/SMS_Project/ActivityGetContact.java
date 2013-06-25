@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.aft_dev.SMS_Project.R;
+
+import android.R.color;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -56,6 +58,12 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		//Initialization of the members of the class
 		findViewById();
 
+		//Test pour savoir quelle est la version d'android
+		//Check android version for switch text color
+		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
+			rech.setBackgroundColor(color.background_dark);
+		}
+
 		//Initialization of array of contact
 		_contacts = getListContactPhone();
 
@@ -79,7 +87,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 		//activate the filter on the ListView
 		_lsv_contact.setTextFilterEnabled(true);
-		
+
 		//Masquer le clavier virtuel jusqu'on appui sur le editText
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -392,6 +400,9 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 						if(_contact.getIs_Checked())
 							PhoneNumberSelection(_contact);	
+						
+						setNbContactChecked();
+
 
 					}
 
@@ -410,7 +421,9 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 						_contact.setChecked((_chk.isChecked()));
 
 						if(_contact.getIs_Checked())
-							PhoneNumberSelection(_contact);		
+							PhoneNumberSelection(_contact);	
+						
+						setNbContactChecked();
 
 					}
 				});
@@ -476,6 +489,28 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 				}	
 
 			};
+
+		}
+
+		public void setNbContactChecked(){
+
+			int _nbContactChecked = 0;
+			
+			// Count the number of checked contact
+			for(Contact c:_contacts){
+
+				if(c.getIs_Checked())
+					_nbContactChecked++;
+
+			}
+			
+			// Set the number of checked contact on the OK button label
+			if(_nbContactChecked > 0)
+				_btn_ok.setText("OK (" + _nbContactChecked + ")");
+			else
+				_btn_ok.setText("OK");
+
+
 
 		}
 

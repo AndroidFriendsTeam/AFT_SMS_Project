@@ -25,6 +25,7 @@
     <string name="reset">bouton pour reset la recherche</string>
     <string name="bdf_Name_Name">Nom</string>
     <string name="bdf_FirstName_Name">Prénom</string>
+    <string name="str_Menu_About"></string>
     
 
 </resources>
