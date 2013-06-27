@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -77,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main); 
-		
+
 		//Création des balises de fusions en fonction de la langue de l'OS
 		String bdf_Nom_Name = "<" + getString(R.string.bdf_Name_Name) + ">";
 		String bdf_Nom_FirstName = "<" + getString(R.string.bdf_FirstName_Name) + ">";
@@ -95,15 +96,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		findViewById(R.id.button_BDF_Nom).setOnClickListener(this);
 		findViewById(R.id.button_BDF_Prenom).setOnClickListener(this);
 		findViewById(R.id.button_Envoyer).setOnClickListener(this);
-		
+
 		//Test pour savoir quelle est la version d'android
 		//Check android version for switch text color
 		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
 			champ_Contact.setBackgroundColor(color.background_dark);
 			champ_Message.setBackgroundColor(color.background_dark);
 		}
-		
-		
+
+
 		//Initialisation des compteurs
 		//Initialisation of counter
 		taille_Sms = nb_Sms = 0;
@@ -134,7 +135,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					int after) {
 				//on ne fait rien avant que le texte ne soit modifié
 				//nothing hapend before the text is changed
-				
+
 			}
 
 			@Override
@@ -167,20 +168,20 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Clic sur le bouton Contact
 	//Clic on the contact button
 	private void selectContact() {
-				
+
 		//Création de l'intention d'ouvrir l'activité ActivityGetContact
 		//Creating a intention to open the ActivityGetContact activity 
 		Intent i = new Intent(MainActivity.this,ActivityGetContact.class);	
-		
+
 		//Initialition du bundle permettant de passer en paramètre à l'activité les contacts sélectionnés
 		//Init the bundle that contain an array with contact already selected
 		Bundle _param = new Bundle();
 		_param.putParcelableArrayList("selectedItems", liste_De_Contact);
-		
+
 		//Affection du bundle de paramètre à l'intention
 		//Set the bundle into the intent
 		i.putExtras(_param);
-				
+
 		//Start the ActivityGetContact activity to open the contact selection
 		startActivityForResult(i,SELECT_CONTACT);
 
@@ -189,7 +190,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Clic sur le bouton Nom
 	//Clic on the last name button
 	private void insert_BDF_Nom() {
-		
+
 		//Récupération de la position du curseur
 		cursor_Position = champ_Message.getSelectionStart();
 
@@ -201,7 +202,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//placer le curseur en fin de texte
 		//Set the cursor at the end of the text
 		champ_Message.setSelection(champ_Message.getText().length());
-	
+
 	}
 
 	//Clic sur le bouton BDF Prénom
@@ -219,7 +220,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//placer le curseur en fin de texte
 		//Set the cursor at the end of the text
 		champ_Message.setSelection(champ_Message.getText().length());
-		
+
 	}
 
 	//Clic sur le bouton envoyer
@@ -289,7 +290,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					Toast toast= Toast.makeText(getApplicationContext(), R.string.str_Sending_Ok, Toast.LENGTH_LONG);  
 					toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
 					toast.show();
-					
+
 					//suppression des contacts et du message
 					champ_Contact.setText("");
 					champ_Message.setText("");
@@ -321,9 +322,22 @@ public class MainActivity extends Activity implements OnClickListener{
 		//ici on pourra mettre l'option pour envoyer à plusieurs destinataires
 		MenuInflater _InfMnuCfg = getMenuInflater();
 		_InfMnuCfg.inflate(R.menu.menu_cfg, menu);
-		
-		
+
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch(item.getItemId()){
+		case R.id.mnu_about :		
+			About.Show(MainActivity.this);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);	
+		}
+
+
 	}
 
 	@Override
@@ -408,7 +422,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 		return source;
 	}
-	
+
 	//Création de la fonction ajouter_BDF pour intégrer un mot n'importe où dans une chaîne
 	public String ajouter_BDF(String source, String mot, Integer cursor_Index){
 
@@ -416,10 +430,10 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		//récupération de la première partie du message 
 		avant = source.substring(0, cursor_Index);
-		
+
 		//récupération du mot à modifier
 		pendant = mot;
-		
+
 		//récupération de la fin de la chaîne
 		apres = source.substring(cursor_Index , source.length());
 
@@ -428,7 +442,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		//modification du message incluant les modifications
 		source = resultat;
-		
+
 		return source;
 	}
 
