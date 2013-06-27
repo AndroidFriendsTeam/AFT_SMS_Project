@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/mnu_about" android:title="@string/str_Menu_About" android:enabled="true" android:visible="true" android:menuCategory="container"></item>
+    <item android:id="@+id/mnu_about" android:title="@string/str_Menu_About" android:enabled="true" android:visible="true" android:menuCategory="system"></item>
     
 
 </menu>
