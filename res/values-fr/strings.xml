@@ -25,5 +25,8 @@
     <string name="reset">bouton pour reset la recherche</string>
     <string name="bdf_Name_Name">Nom</string>
     <string name="bdf_FirstName_Name">Prénom</string>
+    <string name="str_Version_Unknown">Inconnue</string>
+    <string name="str_About">Multi-post SMS\nPublipostage par SMS\nDéveloppée par AFT\n\n Support : AFTDeve@gmail.com \n</string>
+    <string name="str_Menu_About">A propos...</string>
 
 </resources>
