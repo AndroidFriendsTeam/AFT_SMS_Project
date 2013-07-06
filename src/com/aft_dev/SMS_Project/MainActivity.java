@@ -426,7 +426,58 @@ public class MainActivity extends Activity implements OnClickListener{
 	//Création de la fonction ajouter_BDF pour intégrer un mot n'importe où dans une chaîne
 	public String ajouter_BDF(String source, String mot, Integer cursor_Index){
 
-		String avant, pendant, apres, resultat;
+		String avant, pendant, apres, resultat, espace_Avant = "" , espace_Apres = "";
+		char  sous_Source_Avant = ' ', sous_Source_Apres = ' ';
+		boolean espace_Avant_Existe = true, espace_Apres_Existe = true;
+		
+		//test de présence de carctère avant la BDF
+		try{
+			source.substring(cursor_Index - 1 , cursor_Index);
+		}
+		catch (IndexOutOfBoundsException e){
+			// Instructions de traitement de l'erreur
+			//Il n'existe pas de caractère donc nous sommes au début du message et donc on ne met pas d'espace
+			espace_Avant = "";
+			espace_Avant_Existe = false;
+		}
+		
+		//Si il y a un caractère avant alors on test si c'est un espace ou pas
+		if(espace_Avant_Existe){
+			//récupération du caractère précédent
+			sous_Source_Avant = source.charAt(cursor_Index - 1);
+			if(sous_Source_Avant == ' '){
+				//si le caractère précédent est un esapce nous n'en rajoutons pas
+				espace_Avant = "";
+			}
+			else{
+				//si le caractère précédent n'est pas un espace nous le rajoutons
+				espace_Avant = " ";
+			}
+		}
+
+		//test de présence de carctère avant la BDF
+		try{
+			source.substring(cursor_Index , cursor_Index + 1);
+		}
+		catch (IndexOutOfBoundsException e){
+			// Instructions de traitement de l'erreur
+			//Il n'existe pas de caractère après nous sommes donc en fin de message donc nous rajoutons un espace
+			espace_Apres = " ";
+			espace_Apres_Existe = false;
+		}
+		
+		//Si il y a un caractère après alors on test si c'est un espace ou pas
+		if(espace_Apres_Existe){
+	
+			sous_Source_Apres = source.charAt(cursor_Index);
+			
+			if(sous_Source_Apres == ' '){
+				espace_Apres = "";
+			}
+			else{
+				espace_Apres = " ";
+			}
+		}
 
 		//récupération de la première partie du message 
 		avant = source.substring(0, cursor_Index);
@@ -438,7 +489,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		apres = source.substring(cursor_Index , source.length());
 
 		//création de la chaîne final
-		resultat = avant + " " + pendant + " " + apres;
+		resultat = avant + espace_Avant + pendant + espace_Apres + apres;
 
 		//modification du message incluant les modifications
 		source = resultat;
