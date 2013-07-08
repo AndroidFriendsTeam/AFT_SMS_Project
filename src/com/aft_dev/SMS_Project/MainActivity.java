@@ -424,6 +424,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	//Création de la fonction ajouter_BDF pour intégrer un mot n'importe où dans une chaîne
+	//Creatiion
 	public String ajouter_BDF(String source, String mot, Integer cursor_Index){
 
 		String avant, pendant, apres, resultat, espace_Avant = "" , espace_Apres = "";
