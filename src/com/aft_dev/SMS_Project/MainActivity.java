@@ -14,6 +14,7 @@ import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	//Création d'une variable pour réinitialiser le message
 	//Creating a variable to re initialised the message
-	String message_Temporaire;
+	String message_Temporaire, message_Temporaire_Avant, message_Temporaire_Apres;
 
 	//Création des différentes string utilisée pour les algo
 	//Creating few String using in algo
@@ -135,7 +136,8 @@ public class MainActivity extends Activity implements OnClickListener{
 					int after) {
 				//on ne fait rien avant que le texte ne soit modifié
 				//nothing hapend before the text is changed
-
+				
+				message_Temporaire_Avant = champ_Message.getText().toString();
 			}
 
 			@Override
@@ -424,7 +426,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	//Création de la fonction ajouter_BDF pour intégrer un mot n'importe où dans une chaîne
-	//Creatiion
 	public String ajouter_BDF(String source, String mot, Integer cursor_Index){
 
 		String avant, pendant, apres, resultat, espace_Avant = "" , espace_Apres = "";
@@ -497,7 +498,57 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		return source;
 	}
+	
+	//Création d'une méthode qui va vérifier et supprimer si besoin une BDF à un endroit
+	public String supprimer_BDF(String source,Integer cursor_Index){
+		// TODO Auto-generated method stub
+		
+		String avant, apres;
+		Integer index_Nom, index_Prenom;
+		
+		//test de proximité antérieur valide
+		//if(source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length()) != -1 && source.indexOf(bdf_Nom.getNom().toString() , cursor_Index) == -1){
+		
+		//test de présence de la BDF nom
+		if(source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length()) != -1 && source.indexOf(bdf_Nom.getNom().toString() , cursor_Index) == -1){
+			Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
+			index_Nom = source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length());
+			avant = source.substring(0, index_Nom);
+			apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
+			source = avant + apres;
+		}
+		else{
+			Toast.makeText(getApplicationContext(), "Il y n'a pas de nom proche", Toast.LENGTH_SHORT).show();
+			avant = source.substring(0, cursor_Index);
+			apres = source.substring(cursor_Index + 1, source.length());
+			source = avant + apres;
+		}
+		
+		return source;
+	}
+	
+	//Méthode permettant de récupérer l'appui sur le bouton chariot arrière
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//Si on appui sur le bouton chariot arrière alors nous allons véri 
+		if (keyCode == KeyEvent.KEYCODE_DEL) {
+			
+			Integer cursor = champ_Message.getSelectionStart();
+			champ_Message.setText(supprimer_BDF(message_Temporaire_Avant, cursor));
+			if(cursor > champ_Message.getText().length()){
+				champ_Message.setSelection(champ_Message.getText().length());
+			}
+			else{
+				champ_Message.setSelection(cursor);
+			}
+			
+			return true;
+		}
+				
+		return super.onKeyDown(keyCode, event);
+	}
 
+	//Méthode permettatant de récupérer l'appui sur le bouton retour
 	@Override
 	public void onBackPressed() {
 
