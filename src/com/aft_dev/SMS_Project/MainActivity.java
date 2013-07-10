@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	//Création d'une variable pour réinitialiser le message
 	//Creating a variable to re initialised the message
-	String message_Temporaire, message_Temporaire_Avant, message_Temporaire_Apres;
+	String message_Temporaire, message_Temporaire_Avant;
 
 	//Création des différentes string utilisée pour les algo
 	//Creating few String using in algo
@@ -514,7 +514,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
 			index_Nom = source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length());
 			avant = source.substring(0, index_Nom);
-			apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
+			apres = source.substring(index_Nom + bdf_Nom.getNom().length() + 1, source.length());
 			source = avant + apres;
 		}
 		else{
