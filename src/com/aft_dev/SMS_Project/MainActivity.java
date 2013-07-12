@@ -501,106 +501,85 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	//Création d'une méthode qui va vérifier et supprimer si besoin une BDF à un endroit
 	public String supprimer_BDF(String source,Integer cursor_Index){
-		// TODO Auto-generated method stub
 
 		String avant, apres;
 		Integer index_Nom, index_Prenom, cursor_Nom = 0, cursor_Prenom = 0;
 		boolean trouve_Nom = true , trouve_Prenom = true, supp_Caract_Nom = false, supp_Caract_Prenom = false;
 
-		//tant que je trouve mon nom
-		while(trouve_Nom){
-			//si je trouve mon nom à partir de la position initiale de mon curseur
-			if(source.indexOf(bdf_Nom.getNom().toString() , cursor_Nom) != -1){
-				//alors je regarde si mon curseur est dans la balise
-				//Toast.makeText(getApplicationContext(), "Il y a au moins un nom dans le message", Toast.LENGTH_SHORT).show();
-				index_Nom = source.indexOf(bdf_Nom.getNom().toString() , cursor_Nom);
-				//si le curseur est dans la balise
-				if(cursor_Index >= index_Nom && cursor_Index < index_Nom + bdf_Nom.getNom().length()){
-					//alors je supprime ma balise et je sors de ma boucle
-					Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
-					avant = source.substring(0, index_Nom);
-					apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
-					source = avant + apres;
+		if(cursor_Index>0){
+
+			//tant que je trouve mon nom
+			while(trouve_Nom){
+				//si je trouve mon nom à partir de la position initiale de mon curseur
+				if(source.indexOf(bdf_Nom.getNom().toString() , cursor_Nom) != -1){
+					//alors je regarde si mon curseur est dans la balise
+					//Toast.makeText(getApplicationContext(), "Il y a au moins un nom dans le message", Toast.LENGTH_SHORT).show();
+					index_Nom = source.indexOf(bdf_Nom.getNom().toString() , cursor_Nom);
+					//si le curseur est dans la balise
+					if(cursor_Index >= index_Nom && cursor_Index < index_Nom + bdf_Nom.getNom().length()){
+						//alors je supprime ma balise et je sors de ma boucle
+						Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
+						avant = source.substring(0, index_Nom);
+						apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
+						source = avant + apres;
+						cursor_Nom = 0 ;
+						trouve_Nom = false;
+					}
+					else{
+						//sinon je modifie mon curseur pour passer à l'index suivant
+						cursor_Nom += bdf_Nom.getNom().length();
+						//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
+					}
+				}
+				else{
+					//sinon je sors car je ne suis pas dans une balise 
+					//et je supprimer le caractère précédent
+					supp_Caract_Nom = true;
 					cursor_Nom = 0 ;
 					trouve_Nom = false;
+					//Toast.makeText(getApplicationContext(), "Il n'y a plus de nom à tester", Toast.LENGTH_SHORT).show();
+				}
+			}
+
+			//tant que je trouve mon prénom
+			while(trouve_Prenom){
+				//si je trouve mon prénom à partir de la position initiale de mon curseur
+				if(source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom) != -1){
+					//alors je regarde si mon curseur est dans la balise
+					//Toast.makeText(getApplicationContext(), "Il y a au moins un prénom dans le message", Toast.LENGTH_SHORT).show();
+					index_Prenom = source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom);
+					//si le curseur est dans la balise
+					if(cursor_Index >= index_Prenom && cursor_Index < index_Prenom + bdf_Prenom.getNom().length()){
+						//alors je supprime ma balise et je sors de ma boucle
+						Toast.makeText(getApplicationContext(), "Il y a un prénom proche", Toast.LENGTH_SHORT).show();
+						avant = source.substring(0, index_Prenom);
+						apres = source.substring(index_Prenom + bdf_Prenom.getNom().length(), source.length());
+						source = avant + apres;
+						cursor_Prenom = 0 ;
+						trouve_Prenom = false;
+					}
+					else{
+						//sinon je modifie mon curseur pour passer à l'index suivant
+						cursor_Prenom += bdf_Prenom.getNom().length();
+						//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else{
-					//sinon je modifie mon curseur pour passer à l'index suivant
-					cursor_Nom += bdf_Nom.getNom().length();
-					//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
-				}
-			}
-			else{
-				//sinon je sors car je ne suis pas dans une balise 
-				//et je supprimer le caractère précédent
-				supp_Caract_Nom = true;
-				cursor_Nom = 0 ;
-				trouve_Nom = false;
-				//Toast.makeText(getApplicationContext(), "Il n'y a plus de nom à tester", Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		//tant que je trouve mon prénom
-		while(trouve_Prenom){
-			//si je trouve mon prénom à partir de la position initiale de mon curseur
-			if(source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom) != -1){
-				//alors je regarde si mon curseur est dans la balise
-				//Toast.makeText(getApplicationContext(), "Il y a au moins un prénom dans le message", Toast.LENGTH_SHORT).show();
-				index_Prenom = source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom);
-				//si le curseur est dans la balise
-				if(cursor_Index >= index_Prenom && cursor_Index < index_Prenom + bdf_Prenom.getNom().length()){
-					//alors je supprime ma balise et je sors de ma boucle
-					Toast.makeText(getApplicationContext(), "Il y a un prénom proche", Toast.LENGTH_SHORT).show();
-					avant = source.substring(0, index_Prenom);
-					apres = source.substring(index_Prenom + bdf_Prenom.getNom().length(), source.length());
-					source = avant + apres;
+					//sinon je sors car je ne suis pas dans une balise 
+					//et je supprimer le caractère précédent
+					supp_Caract_Prenom = true;
 					cursor_Prenom = 0 ;
 					trouve_Prenom = false;
-				}
-				else{
-					//sinon je modifie mon curseur pour passer à l'index suivant
-					cursor_Prenom += bdf_Prenom.getNom().length();
-					//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(), "Il n'y a plus de prénom à tester", Toast.LENGTH_SHORT).show();
 				}
 			}
-			else{
-				//sinon je sors car je ne suis pas dans une balise 
-				//et je supprimer le caractère précédent
-				supp_Caract_Prenom = true;
-				cursor_Prenom = 0 ;
-				trouve_Prenom = false;
-				//Toast.makeText(getApplicationContext(), "Il n'y a plus de prénom à tester", Toast.LENGTH_SHORT).show();
+
+			if(supp_Caract_Nom && supp_Caract_Prenom){
+				avant = source.substring(0, cursor_Index);
+				apres = source.substring(cursor_Index + 1, source.length());
+				source = avant + apres;
 			}
 		}
-		
-		if(supp_Caract_Nom && supp_Caract_Prenom){
-			avant = source.substring(0, cursor_Index);
-			apres = source.substring(cursor_Index + 1, source.length());
-			source = avant + apres;
-		}
-
-		//test de présence de la BDF nom
-		//		if(source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length()) != -1 && source.indexOf(bdf_Nom.getNom().toString() , cursor_Index) == -1){
-		//			Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
-		//			index_Nom = source.indexOf(bdf_Nom.getNom().toString() , (cursor_Index + 1) - bdf_Nom.getNom().length());
-		//			avant = source.substring(0, index_Nom);
-		//			apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
-		//			source = avant + apres;
-		//		}
-		//		else 
-		//			if(source.indexOf(bdf_Prenom.getNom().toString() , (cursor_Index + 1) - bdf_Prenom.getNom().length()) != -1 && source.indexOf(bdf_Prenom.getNom().toString() , cursor_Index) == -1){
-		//				Toast.makeText(getApplicationContext(), "Il y a un prénom proche", Toast.LENGTH_SHORT).show();
-		//				index_Prenom = source.indexOf(bdf_Prenom.getNom().toString() , (cursor_Index + 1) - bdf_Prenom.getNom().length());
-		//				avant = source.substring(0, index_Prenom);
-		//				apres = source.substring(index_Prenom + bdf_Prenom.getNom().length(), source.length());
-		//				source = avant + apres;
-		//			}else{
-		//				Toast.makeText(getApplicationContext(), "Il y n'a pas de nom proche", Toast.LENGTH_SHORT).show();
-		//				avant = source.substring(0, cursor_Index);
-		//				apres = source.substring(cursor_Index + 1, source.length());
-		//				source = avant + apres;
-		//			}
-
 
 		return source;
 	}
@@ -612,15 +591,17 @@ public class MainActivity extends Activity implements OnClickListener{
 		if (keyCode == KeyEvent.KEYCODE_DEL) {
 
 			Integer cursor = champ_Message.getSelectionStart();
-			champ_Message.setText(supprimer_BDF(message_Temporaire_Avant, cursor));
-			if(cursor > champ_Message.getText().length()){
-				champ_Message.setSelection(champ_Message.getText().length());
-			}
-			else{
-				champ_Message.setSelection(cursor);
-			}
+			if(cursor>0){
+				champ_Message.setText(supprimer_BDF(message_Temporaire_Avant, cursor));
+				if(cursor > champ_Message.getText().length()){
+					champ_Message.setSelection(champ_Message.getText().length());
+				}
+				else{
+					champ_Message.setSelection(cursor);
+				}
 
-			return true;
+				return true;
+			}
 		}
 
 		return super.onKeyDown(keyCode, event);
