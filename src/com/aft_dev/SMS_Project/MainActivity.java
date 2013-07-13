@@ -323,7 +323,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//ici on pourra mettre l'option pour envoyer à plusieurs destinataires
 		MenuInflater _InfMnuCfg = getMenuInflater();
-		_InfMnuCfg.inflate(R.menu.menu_cfg, menu);
+		_InfMnuCfg.inflate(R.menu.menu, menu);
 
 		return true;
 	}
@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		default:
 			return super.onOptionsItemSelected(item);	
 		}
-
+			
 
 	}
 
