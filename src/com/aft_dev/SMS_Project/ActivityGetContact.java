@@ -44,6 +44,7 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 	MyCustomAdapter _adapter = null;
 	ArrayList<Contact> _contacts;
 	Integer _id,cpt;
+	CheckBox _ckb_selection_all;
 
 	//Variable pour récupérer le numéro de GSM en cours
 	String phoneNumberEnCours,idPhoneNumberEnCours;
@@ -85,6 +86,9 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		this._btn_cancel.setOnClickListener(this);
 		this._btn_reset.setOnClickListener(this);
 
+		//Listener for the check/uncheck all
+		addListenerOnChkAll();
+
 		//activate the filter on the ListView
 		_lsv_contact.setTextFilterEnabled(true);
 
@@ -101,9 +105,60 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 				_adapter.getFilter().filter(s.toString());    	
 			}
 		});
-
+		//Check if at least 1 contact is already checked to check the "select all" checkbox
+		Integer i = 0, j = 0;
+		boolean _continu = true;
+		while(i < _contacts.size())
+		{
+			if (_contacts.get(i).getIs_Checked())
+			{
+				//check the "select all" checkbox
+				_ckb_selection_all.setChecked(true);
+				_continu = false;
+				j++;
+			}	
+			i++;
+		}
+		if(j > 0){
+		_btn_ok.setText("OK (" + j.toString() + ")");
+		}
+		else{
+			_btn_ok.setText("OK");
+		}
 	}
 
+	private void addListenerOnChkAll() {
+		_ckb_selection_all = (CheckBox) findViewById(R.id.ckb_selection_all);
+		 
+		_ckb_selection_all.setOnClickListener(new OnClickListener() {
+	 
+		  @Override
+		  public void onClick(View v) {
+	        //is _ckb_selection_all checked?
+			if (((CheckBox) v).isChecked())
+			{
+				_ckb_selection_all.setChecked(false);
+			}
+			else
+			{
+				//Uncheck all contacts
+				for(int i = 0 ; i < _contacts.size() ; i++){
+
+					//if contact is checked add in the array of items
+					if(_contacts.get(i).getIs_Checked())
+					{
+						_contacts.get(i).setChecked(false);
+					}
+				}
+				//refresh the list
+				_lsv_contact.invalidateViews();
+			}
+			_btn_ok.setText("OK");
+		  }
+		});	
+		
+	}
+	
 	private void findViewById(){
 		this._btn_ok = (Button)findViewById(R.id.btn_ok);
 		this._btn_cancel = (Button)findViewById(R.id.btn_cancel);
@@ -398,14 +453,11 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 
 						_contact.setChecked((_chk.isChecked()));
 
-						if(_contact.getIs_Checked())
-							PhoneNumberSelection(_contact);	
-						
-						setNbContactChecked();
-
-
+						if(_contact.getIs_Checked()){
+							PhoneNumberSelection(_contact);
+						}
+						setNbContactChecked();	
 					}
-
 				});
 
 				convertView.setOnClickListener(new View.OnClickListener() {
@@ -420,9 +472,10 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 						_chk.setChecked(!_chk.isChecked());
 						_contact.setChecked((_chk.isChecked()));
 
-						if(_contact.getIs_Checked())
-							PhoneNumberSelection(_contact);	
-						
+						if(_contact.getIs_Checked()){
+							PhoneNumberSelection(_contact);
+						}
+
 						setNbContactChecked();
 
 					}
@@ -495,23 +548,22 @@ public class ActivityGetContact extends Activity implements OnClickListener   {
 		public void setNbContactChecked(){
 
 			int _nbContactChecked = 0;
-			
+
 			// Count the number of checked contact
 			for(Contact c:_contacts){
-
 				if(c.getIs_Checked())
 					_nbContactChecked++;
-
 			}
-			
+
 			// Set the number of checked contact on the OK button label
-			if(_nbContactChecked > 0)
+			if(_nbContactChecked > 0){
 				_btn_ok.setText("OK (" + _nbContactChecked + ")");
-			else
+				_ckb_selection_all.setChecked(true);
+			}
+			else{
 				_btn_ok.setText("OK");
-
-
-
+				_ckb_selection_all.setChecked(false);
+			}
 		}
 
 	}//End CustomAdapter
