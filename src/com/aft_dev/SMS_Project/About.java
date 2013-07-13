@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +47,6 @@ public class About {
 			LayoutInflater _inflater = callingActivity.getLayoutInflater();
 			_about = _inflater.inflate(R.layout.activity_about, (ViewGroup) callingActivity.findViewById(R.id.aboutView));
 			_txtAbout = (TextView) _about.findViewById(R.id.aboutText);	
-			
-			//Test pour savoir quelle est la version d'android
-			//Check android version for switch text color
-			if(android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
-				_txtAbout.setTextColor(color.black);
-			}
-			
 		}catch(InflateException e){
 			 //Inflater can throw exception, unlikely but default to TextView if it occurs
 			_about = _txtAbout = new TextView(callingActivity);
@@ -61,6 +56,14 @@ public class About {
 		_txtAbout.setText(_aboutText);
 		//Now Linkify the text
 		Linkify.addLinks(_txtAbout, Linkify.ALL);
+		
+		//Test pour savoir quelle est la version d'android
+		//Check android version for switch text color
+		if(android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1){	
+			_txtAbout.setTextColor(Color.rgb(0,0,0));
+		}
+		
+		
 		//Build and show the dialog
 		new AlertDialog.Builder(callingActivity)
 		.setTitle("About " + callingActivity.getString(R.string.app_name))
