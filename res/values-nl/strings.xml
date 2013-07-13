@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multi-post SMS</string>
+    <string name="str_Sending_Ok">Verzonden berichten</string>
+    <string name="str_No_Contact">Geen contact geselecteerd</string>
+    <string name="str_No_Message">Geen bericht message</string>
+    <string name="str_Hint_Search">Zoeken</string>
+    <string name="str_Hint_Contact">Selecteer hier uw contacten</string>
+    <string name="str_Hint_Message">Geef hier de tekst van uw bericht in</string>
+    <string name="str_Hint_Cnt_Caract">160/160</string>
+    <string name="str_Hint_Cnt_SMS">1 SMS</string>
+    <string name="str_Btn_Last_Name">Naam knop</string>
+    <string name="str_Btn_First_Name">Voornaam knop</string>
+    <string name="str_Content_Description_btn_Send">Verzenden</string>
+    <string name="str_Content_Description_btn_Contact">Contacten</string>
+    <string name="str_Num_Contacts">Nummers van de contacten</string>
+    <string name="str_Sending_Confirm_1">Wenst u dit bericht werkelijk te verzenden naar</string>
+    <string name="str_Sending_Confirm_2">bestemmelingen?</string>
+    <string name="str_First_Name">Voornaam</string>
+    <string name="str_Last_Name">Naam</string>
+    <string name="str_First_Name_Last_Name">Voornaam, naam</string>
+    <string name="str_Phone">Nummer</string>
+    <string name="search">Zoeken</string>
+    <string name="reset">reset knop</string>
+    <string name="bdf_Name_Name">Naam</string>
+    <string name="bdf_FirstName_Name">Voornaam</string>
+    <string name="str_Version_Unknown">Onbekend</string>
+    <string name="str_About">Multi-post SMS\nPublipost per SMS\nOntwikkeld door AFT\n\n Support : AFTDeve@gmail.com \n</string>
+    <string name="str_Menu_About">Over ons...</string>
+</resources>
