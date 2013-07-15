@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		default:
 			return super.onOptionsItemSelected(item);	
 		}
-			
+
 
 	}
 
@@ -504,7 +504,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		String avant, apres;
 		Integer index_Nom, index_Prenom, cursor_Nom = 0, cursor_Prenom = 0;
-		boolean trouve_Nom = true , trouve_Prenom = true, supp_Caract_Nom = false, supp_Caract_Prenom = false;
+		boolean trouve_Nom = true , trouve_Prenom = true, supp_Caract_Nom = false, supp_Caract_Prenom = false, nom_Trouve = false;
 
 		if(cursor_Index>0){
 
@@ -518,17 +518,16 @@ public class MainActivity extends Activity implements OnClickListener{
 					//si le curseur est dans la balise
 					if(cursor_Index >= index_Nom && cursor_Index < index_Nom + bdf_Nom.getNom().length()){
 						//alors je supprime ma balise et je sors de ma boucle
-						Toast.makeText(getApplicationContext(), "Il y a un nom proche", Toast.LENGTH_SHORT).show();
 						avant = source.substring(0, index_Nom);
 						apres = source.substring(index_Nom + bdf_Nom.getNom().length(), source.length());
 						source = avant + apres;
 						cursor_Nom = 0 ;
 						trouve_Nom = false;
+						nom_Trouve = true;
 					}
 					else{
 						//sinon je modifie mon curseur pour passer à l'index suivant
 						cursor_Nom += bdf_Nom.getNom().length();
-						//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
 					}
 				}
 				else{
@@ -541,36 +540,36 @@ public class MainActivity extends Activity implements OnClickListener{
 				}
 			}
 
-			//tant que je trouve mon prénom
-			while(trouve_Prenom){
-				//si je trouve mon prénom à partir de la position initiale de mon curseur
-				if(source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom) != -1){
-					//alors je regarde si mon curseur est dans la balise
-					//Toast.makeText(getApplicationContext(), "Il y a au moins un prénom dans le message", Toast.LENGTH_SHORT).show();
-					index_Prenom = source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom);
-					//si le curseur est dans la balise
-					if(cursor_Index >= index_Prenom && cursor_Index < index_Prenom + bdf_Prenom.getNom().length()){
-						//alors je supprime ma balise et je sors de ma boucle
-						Toast.makeText(getApplicationContext(), "Il y a un prénom proche", Toast.LENGTH_SHORT).show();
-						avant = source.substring(0, index_Prenom);
-						apres = source.substring(index_Prenom + bdf_Prenom.getNom().length(), source.length());
-						source = avant + apres;
+			if(!nom_Trouve){
+
+
+				//tant que je trouve mon prénom
+				while(trouve_Prenom){
+					//si je trouve mon prénom à partir de la position initiale de mon curseur
+					if(source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom) != -1){
+						//alors je regarde si mon curseur est dans la balise
+						index_Prenom = source.indexOf(bdf_Prenom.getNom().toString() , cursor_Prenom);
+						//si le curseur est dans la balise
+						if(cursor_Index >= index_Prenom && cursor_Index < index_Prenom + bdf_Prenom.getNom().length()){
+							//alors je supprime ma balise et je sors de ma boucle
+							avant = source.substring(0, index_Prenom);
+							apres = source.substring(index_Prenom + bdf_Prenom.getNom().length(), source.length());
+							source = avant + apres;
+							cursor_Prenom = 0 ;
+							trouve_Prenom = false;
+						}
+						else{
+							//sinon je modifie mon curseur pour passer à l'index suivant
+							cursor_Prenom += bdf_Prenom.getNom().length();
+						}
+					}
+					else{
+						//sinon je sors car je ne suis pas dans une balise 
+						//et je supprimer le caractère précédent
+						supp_Caract_Prenom = true;
 						cursor_Prenom = 0 ;
 						trouve_Prenom = false;
 					}
-					else{
-						//sinon je modifie mon curseur pour passer à l'index suivant
-						cursor_Prenom += bdf_Prenom.getNom().length();
-						//Toast.makeText(getApplicationContext(), "Déplacement virtuel de mon curseur", Toast.LENGTH_SHORT).show();
-					}
-				}
-				else{
-					//sinon je sors car je ne suis pas dans une balise 
-					//et je supprimer le caractère précédent
-					supp_Caract_Prenom = true;
-					cursor_Prenom = 0 ;
-					trouve_Prenom = false;
-					//Toast.makeText(getApplicationContext(), "Il n'y a plus de prénom à tester", Toast.LENGTH_SHORT).show();
 				}
 			}
 
